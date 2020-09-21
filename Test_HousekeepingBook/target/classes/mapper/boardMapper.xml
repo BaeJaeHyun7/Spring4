@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.housebook.dao.BoardMapper">
+	<insert id="boardWrite" parameterType="board">
+		insert into
+			moneybook_tb(
+				moneybook_no
+				,acc_id
+				,moneybook_memo
+				,moneybook_type
+				,moneybook_amount
+				
+			) values(
+				moneybook_tb_seq.nextval
+				,#{acc_id}
+				,#{moneybook_memo}
+				,#{moneybook_type}
+				,#{moneybook_amount}
+				
+			)
+			
+	</insert>
+		
+	<select id="boardList" resultType="board">
+		select
+				moneybook_no
+				,acc_id
+				,moneybook_memo
+				,moneybook_type
+				,moneybook_amount
+				,to_char(moneybook_indate, 'YYYY-MM-DD') as moneybook_indate
+		from
+			moneybook_tb
+		order by
+			moneybook_no
+	
+	</select>
+	
+</mapper>

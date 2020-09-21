@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scit.web9.dao.memberMapper">
+
+<insert id="memberInsert" parameterType="member">
+insert into member_table(
+						member_id
+						,member_pw
+						,member_nm
+						,member_birth
+					)values(
+							#{member_id}
+					        ,#{member_pw}
+					        ,#{member_nm}
+					        ,#{member_birth}					
+							)
+</insert>
+<select id="memberSelect" resultType="member">
+select 
+		member_id
+		,member_nm
+		,member_birth
+		,to_char(member_indate,'YY-MM-DD') as member_indate
+from
+		member_table
+order by
+		member_nm
+</select>
+<delete id="memberDelete" parameterType="String">
+delete from
+		member_table
+where
+	member_id = #{member_id}
+
+</delete>
+<update id="memberUpdate" parameterType="member">
+update 
+		member_table
+set
+		member_nm = #{member_nm}
+		,member_birth = #{member_birth}
+		
+where
+		member_id = #{member_id}
+		
+</update>
+<select id="memberSelectOne" parameterType="String" resultType="member">
+select
+		member_id
+		,member_pw
+		,member_nm
+		,member_birth
+		,to_char(member_indate,'YY-MM-DD') as member_indate
+from
+		member_table
+where
+	member_id = #{member_id}
+
+</select>
+<select id="memberSearch" parameterType="hashmap" resultType="member">
+select 
+		member_id
+		,member_nm
+		,member_birth
+		,to_char(member_indate,'YY-MM-DD') as member_indate
+from
+		member_table
+where
+		to_date(member_birth,'YYYYMMDD') 
+		between
+			to_date(#{start_date},'YYYYMMDD')
+		and
+			to_date(#{end_date},'YYYYMMDD')	
+order by
+		member_nm
+
+</select>
+
+
+
+
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
